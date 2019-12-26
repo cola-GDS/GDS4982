@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
 <link rel="ICON" type="image/x-icon" href="favicon.ico" />
-<title>cola Report for Consensus Partitioning</title>
+<title>cola Report for GDS4982</title>
 
 <script type="text/javascript">
 window.onload = function() {
@@ -205,9 +205,9 @@ hr {
 </head>
 
 <body>
-<h1>cola Report for Consensus Partitioning</h1>
+<h1>cola Report for GDS4982</h1>
 
-<p><strong>Date</strong>: 2019-12-03 22:15:54 CET, <strong>cola version</strong>: 1.3.2</p>
+<p><strong>Date</strong>: 2019-12-25 21:56:30 CET, <strong>cola version</strong>: 1.3.2</p>
 
 <p id='loadingflag' style='text-align:center;'>Document is loading... <img src='Ellipsis-4.2s-119px.gif' style='vertical-align:middle;' /></p>
 <hr/>
@@ -2874,7 +2874,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -2905,7 +2905,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -2934,12 +2934,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -3900,8 +3902,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:hclust 96     1.73e-52  0.00229 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -3951,7 +3953,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -3982,7 +3984,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -4011,12 +4013,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -4973,8 +4977,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:kmeans 93     1.19e-52    0.238 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -5024,7 +5028,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -5055,7 +5059,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -5084,12 +5088,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -6050,8 +6056,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:skmeans 96     1.55e-54    0.176 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -6101,7 +6107,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -6132,7 +6138,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -6161,12 +6167,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -7127,8 +7135,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:pam 96     1.73e-52  0.00665 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -7178,7 +7186,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -7209,7 +7217,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -7238,12 +7246,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -8200,8 +8210,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:mclust 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -8251,7 +8261,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -8282,7 +8292,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -8311,12 +8321,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -9273,8 +9285,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; SD:NMF 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -9324,7 +9336,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -9355,7 +9367,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -9384,12 +9396,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -10350,8 +10364,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:hclust 96     1.73e-52  0.00229 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -10401,7 +10415,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -10432,7 +10446,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -10461,12 +10475,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -11423,8 +11439,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:kmeans 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -11474,7 +11490,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -11505,7 +11521,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -11534,12 +11550,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -12500,8 +12518,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:skmeans 96     1.55e-54    0.176 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -12551,7 +12569,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -12582,7 +12600,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -12611,12 +12629,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -13577,8 +13597,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:pam 96     1.55e-54  0.17576 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -13628,7 +13648,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -13659,7 +13679,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -13688,12 +13708,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -14654,8 +14676,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:mclust 93     1.19e-52    0.128 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -14705,7 +14727,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -14736,7 +14758,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -14765,12 +14787,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -15727,8 +15751,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; CV:NMF 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -15778,7 +15802,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -15809,7 +15833,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -15838,12 +15862,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -16804,8 +16830,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:hclust 96     1.73e-52   0.0063 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -16855,7 +16881,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -16886,7 +16912,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -16915,12 +16941,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -17877,8 +17905,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:kmeans 96     1.55e-54    0.176 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -17928,7 +17956,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -17959,7 +17987,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -17988,12 +18016,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -18954,8 +18984,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:skmeans 96     1.55e-54    0.176 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -19005,7 +19035,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -19036,7 +19066,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -19065,12 +19095,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -20031,8 +20063,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:pam 95     7.26e-52  0.00673 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -20082,7 +20114,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -20113,7 +20145,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -20142,12 +20174,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -21108,8 +21142,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:mclust 95     6.58e-54    0.192 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -21159,7 +21193,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -21190,7 +21224,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -21219,12 +21253,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -22181,8 +22217,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; MAD:NMF 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -22232,7 +22268,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -22263,7 +22299,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -22292,12 +22328,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -23258,8 +23296,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:hclust 96     1.73e-52   0.0087 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -23309,7 +23347,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -23340,7 +23378,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -23369,12 +23407,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -24331,8 +24371,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:kmeans 72     3.93e-30    1.000 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -24382,7 +24422,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -24413,7 +24453,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -24442,12 +24482,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -25408,8 +25450,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:skmeans 96     1.73e-52  0.00691 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -25459,7 +25501,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -25490,7 +25532,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -25519,12 +25561,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -26485,8 +26529,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:pam 96     1.73e-52   0.0063 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -26536,7 +26580,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -26567,7 +26611,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -26596,12 +26640,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -27562,8 +27608,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:mclust 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <hr/>
 
@@ -27613,7 +27659,7 @@ into one single page to provide an easy and fast comparison between different <c
 <p>The plots are:</p>
 
 <ul>
-<li>The first row: a plot of the ECDF (Empirical cumulative distribution
+<li>The first row: a plot of the ECDF (empirical cumulative distribution
 function) curves of the consensus matrix for each <code>k</code> and the heatmap of
 predicted classes for each <code>k</code>.</li>
 <li>The second row: heatmaps of the consensus matrix for each <code>k</code>.</li>
@@ -27644,7 +27690,7 @@ the partition of k and k-1 and the pairs of samples are both in a same
 cluster in the partition k or k-1.</li>
 </ul>
 
-<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the cola
+<p>The detailed explanations of these statistics can be found in <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/cola.html#toc_13">the <em>cola</em>
 vignette</a>.</p>
 
 <p>Generally speaking, lower PAC score, higher mean silhouette score or higher
@@ -27673,12 +27719,14 @@ If they are too similar, we won&#39;t accept <code>k</code> is better than <code
 <p><code>suggest_best_k()</code> suggests the best \(k\) based on these statistics. The rules are as follows:</p>
 
 <ul>
-<li>All \(k\) with Jaccard index larger than 0.95 are removed because the increase of
-the partition number does not provides enough extra information. If all \(k\) are removed,
-the best \(k\) is assigned by <code>NA</code>.</li>
-<li>For \(k\) with 1-PAC larger than 0.9, the maximal \(k\) is taken as the &ldquo;best k&rdquo;. Other \(k\) is called &ldquo;optional k&rdquo;.</li>
-<li>If it does not fit the second rule. The \(k\) with the highest vote of highest
-1-PAC, mean silhouette and concordance is taken as the &ldquo;best k&rdquo;.</li>
+<li>All \(k\) with Jaccard index larger than 0.95 are removed because increasing
+\(k\) does not provide enough extra information. If all \(k\) are removed, it is
+marked as no subgroup is detected.</li>
+<li>For all \(k\) with 1-PAC score larger than 0.9, the maximal \(k\) is taken as
+the best \(k\), and other \(k\) are marked as optional \(k\).</li>
+<li>If it does not fit the second rule. The \(k\) with the maximal vote of the
+highest 1-PAC score, highest mean silhouette, and highest concordance is
+taken as the best \(k\).</li>
 </ul>
 
 <pre><code class="r">suggest_best_k(res)
@@ -28639,8 +28687,8 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; ATC:NMF 96     9.14e-57    0.975 6
 </code></pre>
 
-<p>If matrix rows can be associated to genes, consider to use <code>GO_Enrichment(res,
-...)</code> to perform function enrichment for the signature genes.</p>
+<p>If matrix rows can be associated to genes, consider to use <code>functional_enrichment(res,
+...)</code> to perform function enrichment for the signature genes. See <a href="http://bioconductor.org/packages/devel/bioc/vignettes/cola/inst/doc/functional_enrichment.html">this vignette</a> for more detailed explanations.</p>
 
 <h2 id='Session-info'>Session info</h2>
 
@@ -28662,37 +28710,29 @@ annotation is discrete, chi-squared contingency table test is applied.</p>
 #&gt; [10] LC_TELEPHONE=C             LC_MEASUREMENT=en_GB.UTF-8 LC_IDENTIFICATION=C       
 #&gt; 
 #&gt; attached base packages:
-#&gt; [1] grid      parallel  stats     graphics  grDevices utils     datasets  methods   base     
+#&gt; [1] grid      stats     graphics  grDevices utils     datasets  methods   base     
 #&gt; 
 #&gt; other attached packages:
-#&gt;  [1] genefilter_1.66.0     ComplexHeatmap_2.1.1  markdown_1.1          knitr_1.26           
-#&gt;  [5] preprocessCore_1.46.0 cola_1.3.2            GEOquery_2.52.0       Biobase_2.44.0       
-#&gt;  [9] BiocGenerics_0.30.0   GetoptLong_0.1.7     
+#&gt; [1] genefilter_1.66.0    ComplexHeatmap_2.3.1 markdown_1.1         knitr_1.26          
+#&gt; [5] GetoptLong_0.1.7     cola_1.3.2          
 #&gt; 
 #&gt; loaded via a namespace (and not attached):
-#&gt;  [1] bitops_1.0-6         matrixStats_0.55.0   bit64_0.9-7          doParallel_1.0.15   
-#&gt;  [5] RColorBrewer_1.1-2   httr_1.4.1           tools_3.6.0          backports_1.1.5     
-#&gt;  [9] R6_2.4.1             DBI_1.0.0            lazyeval_0.2.2       colorspace_1.4-1    
-#&gt; [13] withr_2.1.2          tidyselect_0.2.5     gridExtra_2.3        bit_1.1-14          
-#&gt; [17] compiler_3.6.0       xml2_1.2.2           microbenchmark_1.4-7 pkgmaker_0.28       
-#&gt; [21] slam_0.1-46          scales_1.1.0         readr_1.3.1          NMF_0.23.6          
-#&gt; [25] stringr_1.4.0        digest_0.6.23        pkgconfig_2.0.3      bibtex_0.4.2        
-#&gt; [29] highr_0.8            limma_3.40.6         rlang_0.4.2          GlobalOptions_0.1.1 
-#&gt; [33] RSQLite_2.1.2        impute_1.58.0        shape_1.4.4          mclust_5.4.5        
-#&gt; [37] dendextend_1.12.0    dplyr_0.8.3          RCurl_1.95-4.12      magrittr_1.5        
-#&gt; [41] Matrix_1.2-17        Rcpp_1.0.3           munsell_0.5.0        S4Vectors_0.22.1    
-#&gt; [45] viridis_0.5.1        lifecycle_0.1.0      stringi_1.4.3        plyr_1.8.4          
-#&gt; [49] blob_1.2.0           crayon_1.3.4         lattice_0.20-38      splines_3.6.0       
-#&gt; [53] annotate_1.62.0      circlize_0.4.9       hms_0.5.2            zeallot_0.1.0       
-#&gt; [57] pillar_1.4.2         rjson_0.2.20         rngtools_1.4         reshape2_1.4.3      
-#&gt; [61] codetools_0.2-16     stats4_3.6.0         XML_3.98-1.20        glue_1.3.1          
-#&gt; [65] evaluate_0.14        png_0.1-7            vctrs_0.2.0          foreach_1.4.7       
-#&gt; [69] polyclip_1.10-0      gtable_0.3.0         purrr_0.3.3          tidyr_1.0.0         
-#&gt; [73] clue_0.3-57          assertthat_0.2.1     ggplot2_3.2.1        xfun_0.11           
-#&gt; [77] gridBase_0.4-7       eulerr_6.0.0         xtable_1.8-4         skmeans_0.2-11      
-#&gt; [81] survival_2.44-1.1    viridisLite_0.3.0    tibble_2.1.3         iterators_1.0.12    
-#&gt; [85] AnnotationDbi_1.46.1 registry_0.5-1       memoise_1.1.0        IRanges_2.18.3      
-#&gt; [89] cluster_2.1.0        brew_1.0-6
+#&gt;  [1] circlize_0.4.8       shape_1.4.4          xfun_0.11            slam_0.1-46         
+#&gt;  [5] lattice_0.20-38      splines_3.6.0        colorspace_1.4-1     vctrs_0.2.0         
+#&gt;  [9] stats4_3.6.0         blob_1.2.0           XML_3.98-1.20        survival_2.44-1.1   
+#&gt; [13] rlang_0.4.2          pillar_1.4.2         DBI_1.0.0            BiocGenerics_0.30.0 
+#&gt; [17] bit64_0.9-7          RColorBrewer_1.1-2   matrixStats_0.55.0   stringr_1.4.0       
+#&gt; [21] GlobalOptions_0.1.1  evaluate_0.14        memoise_1.1.0        Biobase_2.44.0      
+#&gt; [25] IRanges_2.18.3       parallel_3.6.0       AnnotationDbi_1.46.1 highr_0.8           
+#&gt; [29] Rcpp_1.0.3           xtable_1.8-4         backports_1.1.5      S4Vectors_0.22.1    
+#&gt; [33] annotate_1.62.0      skmeans_0.2-11       bit_1.1-14           microbenchmark_1.4-7
+#&gt; [37] brew_1.0-6           impute_1.58.0        rjson_0.2.20         png_0.1-7           
+#&gt; [41] digest_0.6.23        stringi_1.4.3        polyclip_1.10-0      clue_0.3-57         
+#&gt; [45] tools_3.6.0          bitops_1.0-6         magrittr_1.5         eulerr_6.0.0        
+#&gt; [49] RCurl_1.95-4.12      RSQLite_2.1.4        tibble_2.1.3         cluster_2.1.0       
+#&gt; [53] crayon_1.3.4         pkgconfig_2.0.3      zeallot_0.1.0        Matrix_1.2-17       
+#&gt; [57] xml2_1.2.2           httr_1.4.1           R6_2.4.1             mclust_5.4.5        
+#&gt; [61] compiler_3.6.0
 </code></pre>
 
 </body>
